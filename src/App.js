@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+//import ReactDOM from 'react-dom';
+
+
+import WeatherCard from './components/WeatherCard/Weather_card';
 import './App.css';
 
+
+
 function App() {
+
+  var temp = Math.floor(Math.random() * 60) - 20;
+  let element = <WeatherCard temp={temp}/>;
+
+  const [test, setTest] = useState(element);
+
+  const [count, setCount] = useState(0);
+  const [cards, setCards] = useState([
+    element
+  ])
+
+  const shoot = () => {
+    setCount(count + 1);
+    var temp = Math.floor(Math.random() * 60) - 20;
+    setCards(cards + <WeatherCard temp={temp}/>);
+  }
+
+   
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App"> 
+    
+    <h1>Count = <div id="count">{count}</div></h1>
+    <button onClick={() => shoot()}>Add a Weather Card</button>
+  {cards.map(card => (
+    <li>{card}</li>
+  ))}
+  {test}
+
     </div>
+    
   );
 }
 
+
 export default App;
+
+
+
+
+
